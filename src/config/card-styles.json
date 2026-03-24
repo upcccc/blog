@@ -55,7 +55,7 @@
 		"order": 7,
 		"offsetX": -135,
 		"offsetY": 240,
-		"enabled": true
+		"enabled": false
 	},
 	"articleCard": {
 		"width": 266,
