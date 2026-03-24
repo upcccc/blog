@@ -37,9 +37,13 @@
 		{
 			"id": "",
 			"url": ""
+		},
+		{
+			"id": "3d47788ecf746760",
+			"url": "/images/background/3d47788ecf746760.webp"
 		}
 	],
-	"currentBackgroundImageId": "",
+	"currentBackgroundImageId": "3d47788ecf746760",
 	"socialButtons": [],
 	"clockShowSeconds": false,
 	"summaryInContent": false,
