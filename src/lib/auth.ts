@@ -5,12 +5,26 @@ import { toast } from 'sonner'
 import { decrypt,encrypt } from './aes256-util'
 
 const GITHUB_TOKEN_CACHE_KEY = 'github_token'
+const GITHUB_TOKEN_CACHE_TIME_KEY = 'github_token_time'
 const GITHUB_PEM_CACHE_KEY = 'p_info'
+const GITHUB_TOKEN_TTL_MS = 55 * 60 * 1000
 
 function getTokenFromCache(): string | null {
 	if (typeof sessionStorage === 'undefined') return null
 	try {
-		return sessionStorage.getItem(GITHUB_TOKEN_CACHE_KEY)
+		const token = sessionStorage.getItem(GITHUB_TOKEN_CACHE_KEY)
+		const tokenTime = sessionStorage.getItem(GITHUB_TOKEN_CACHE_TIME_KEY)
+		if (!token || !tokenTime) return null
+		const tokenTimeMs = Number(tokenTime)
+		if (!Number.isFinite(tokenTimeMs) || tokenTimeMs < 0) {
+			clearTokenCache()
+			return null
+		}
+		if (Date.now() - tokenTimeMs > GITHUB_TOKEN_TTL_MS) {
+			clearTokenCache()
+			return null
+		}
+		return token
 	} catch {
 		return null
 	}
@@ -20,6 +34,7 @@ function saveTokenToCache(token: string): void {
 	if (typeof sessionStorage === 'undefined') return
 	try {
 		sessionStorage.setItem(GITHUB_TOKEN_CACHE_KEY, token)
+		sessionStorage.setItem(GITHUB_TOKEN_CACHE_TIME_KEY, String(Date.now()))
 	} catch (error) {
 		console.error('Failed to save token to cache:', error)
 	}
@@ -29,6 +44,7 @@ function clearTokenCache(): void {
 	if (typeof sessionStorage === 'undefined') return
 	try {
 		sessionStorage.removeItem(GITHUB_TOKEN_CACHE_KEY)
+		sessionStorage.removeItem(GITHUB_TOKEN_CACHE_TIME_KEY)
 	} catch (error) {
 		console.error('Failed to clear token cache:', error)
 	}
@@ -36,6 +52,12 @@ function clearTokenCache(): void {
 
 export async function getPemFromCache(): Promise<string | null> {
 	if (typeof sessionStorage === 'undefined') return null
+	if (!GITHUB_CONFIG.ENCRYPT_KEY) {
+		if (sessionStorage.getItem(GITHUB_PEM_CACHE_KEY)) {
+			console.warn('Encryption key not configured, secure cache unavailable.')
+		}
+		return null
+	}
 	try {
 		// 解密缓存中的 pem
 		const encryptedPem = sessionStorage.getItem(GITHUB_PEM_CACHE_KEY)
@@ -48,6 +70,10 @@ export async function getPemFromCache(): Promise<string | null> {
 
 export async function savePemToCache(pem: string): Promise<void> {
 	if (typeof sessionStorage === 'undefined') return
+	if (!GITHUB_CONFIG.ENCRYPT_KEY) {
+		console.warn('NEXT_PUBLIC_GITHUB_ENCRYPT_KEY is not set, skip private key cache.')
+		return
+	}
 	try {
 		// 加密 pem 后存储
 		const encryptedPem = await encrypt(pem, GITHUB_CONFIG.ENCRYPT_KEY)
