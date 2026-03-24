@@ -15,7 +15,12 @@ function getTokenFromCache(): string | null {
 		const token = sessionStorage.getItem(GITHUB_TOKEN_CACHE_KEY)
 		const tokenTime = sessionStorage.getItem(GITHUB_TOKEN_CACHE_TIME_KEY)
 		if (!token || !tokenTime) return null
-		if (Date.now() - Number(tokenTime) > GITHUB_TOKEN_TTL_MS) {
+		const tokenTimeMs = Number(tokenTime)
+		if (!Number.isFinite(tokenTimeMs) || tokenTimeMs < 0) {
+			clearTokenCache()
+			return null
+		}
+		if (Date.now() - tokenTimeMs > GITHUB_TOKEN_TTL_MS) {
 			clearTokenCache()
 			return null
 		}
@@ -47,7 +52,12 @@ function clearTokenCache(): void {
 
 export async function getPemFromCache(): Promise<string | null> {
 	if (typeof sessionStorage === 'undefined') return null
-	if (!GITHUB_CONFIG.ENCRYPT_KEY) return null
+	if (!GITHUB_CONFIG.ENCRYPT_KEY) {
+		if (sessionStorage.getItem(GITHUB_PEM_CACHE_KEY)) {
+			console.warn('Encryption key not configured, secure cache unavailable.')
+		}
+		return null
+	}
 	try {
 		// 解密缓存中的 pem
 		const encryptedPem = sessionStorage.getItem(GITHUB_PEM_CACHE_KEY)
@@ -61,7 +71,7 @@ export async function getPemFromCache(): Promise<string | null> {
 export async function savePemToCache(pem: string): Promise<void> {
 	if (typeof sessionStorage === 'undefined') return
 	if (!GITHUB_CONFIG.ENCRYPT_KEY) {
-		console.warn('NEXT_PUBLIC_GITHUB_ENCRYPT_KEY 未设置，跳过密钥缓存。')
+		console.warn('NEXT_PUBLIC_GITHUB_ENCRYPT_KEY is not set, skip private key cache.')
 		return
 	}
 	try {

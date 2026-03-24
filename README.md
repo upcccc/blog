@@ -19,7 +19,7 @@ export const GITHUB_CONFIG = {
 
 也可以自己手动先调整安装，可自行 `pnpm i`
 
-> 安全提醒：请务必设置 `NEXT_PUBLIC_GITHUB_ENCRYPT_KEY`，用于加密浏览器会话中的私钥缓存。未设置时不会缓存私钥，每次修改都需要重新导入 `.pem` 文件。
+> 安全提醒：请务必设置 `NEXT_PUBLIC_GITHUB_ENCRYPT_KEY`，用于加密浏览器会话中的私钥缓存。建议使用**至少 32 位随机字符串**。未设置时不会缓存私钥，每次修改都需要重新导入 `.pem` 文件。**不要将密钥提交到代码仓库，也不要提交包含该值的 `.env` 文件**。
 
 ## 2. 部署
 
@@ -70,7 +70,7 @@ export const GITHUB_CONFIG = {
 
 点击安装，就完成了 Github App 管理该仓库的权限设置了。下一步就是让前端知道推送那个项目，就是最开始提到的环境变量。（如果你不会设置环境变量，直接改仓库文件 `src/consts.ts` 也行。因为是公开的，所以环境变量意义也不大）
 
-直接输入这几个环境变量值就行，一般只用设置 OWNER 和 APP_ID。`NEXT_PUBLIC_GITHUB_ENCRYPT_KEY` 也建议设置为你自己的高强度随机字符串（不要使用示例值、不要公开）。
+直接输入这几个环境变量值就行，一般只用设置 OWNER 和 APP_ID。`NEXT_PUBLIC_GITHUB_ENCRYPT_KEY` 也建议设置为你自己的高强度随机字符串（不要使用示例值）。另外要注意：`NEXT_PUBLIC_*` 会打包进前端代码，属于“可见配置”，它只能提供本地缓存的混淆保护，不能当成后端机密。
 
 ![](https://www.yysuni.com/blogs/readme/c5a049d737848abf.png)
 
