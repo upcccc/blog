@@ -56,6 +56,20 @@ const COLOR_PRESETS: ColorPreset[] = [
 			colorArticle: '#6f6f6f33'
 		},
 		backgroundColors: ['#16007b']
+	},
+	{
+		name: '全透明',
+		theme: {
+			colorBrand: '#00000000',
+			colorBrandSecondary: '#00000000',
+			colorPrimary: '#00000000',
+			colorSecondary: '#00000000',
+			colorBg: '#00000000',
+			colorBorder: '#00000000',
+			colorCard: '#00000000',
+			colorArticle: '#00000000'
+		},
+		backgroundColors: ['#00000000']
 	}
 ]
 
