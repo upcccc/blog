@@ -5,22 +5,17 @@
 		"username": "upccc"
 	},
 	"theme": {
-		"colorBrand": "#35bfab",
-		"colorPrimary": "#334f52",
-		"colorSecondary": "#7b888e",
-		"colorBrandSecondary": "#1fc9e7",
-		"colorBg": "#eeeeee",
-		"colorBorder": "#ffffff",
-		"colorCard": "#ffffff66",
-		"colorArticle": "#ffffffcc"
+		"colorBrand": "#00000000",
+		"colorPrimary": "#00000000",
+		"colorSecondary": "#00000000",
+		"colorBrandSecondary": "#00000000",
+		"colorBg": "#00000000",
+		"colorBorder": "#00000000",
+		"colorCard": "#00000000",
+		"colorArticle": "#00000000"
 	},
 	"backgroundColors": [
-		"#EDDD62",
-		"#9EE7D1",
-		"#84D68A",
-		"#EDDD62",
-		"#88E6E5",
-		"#a7f3d0"
+		"#00000000"
 	],
 	"artImages": [
 		{
