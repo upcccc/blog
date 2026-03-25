@@ -26,7 +26,7 @@ export function ColorPicker({ value = '#000000', onChange, className }: ColorPic
 		if (open && triggerRef.current) {
 			const rect = triggerRef.current.getBoundingClientRect()
 			setPosition({
-				top: rect.top - 240,
+				top: rect.top > 240 ? rect.top - 240 : rect.bottom + 8,
 				left: rect.left
 			})
 		}
@@ -65,7 +65,6 @@ export function ColorPicker({ value = '#000000', onChange, className }: ColorPic
 
 			{mounted &&
 				open &&
-				position.top > 0 &&
 				createPortal(
 					<ColorPickerPanel
 						value={value}
