@@ -12,6 +12,7 @@ interface ColorConfigProps {
 }
 
 const DEFAULT_THEME_COLORS = siteContent.theme
+const TRANSPARENT_COLOR = '#00000000'
 
 type ColorPreset = {
 	name: string
@@ -60,16 +61,16 @@ const COLOR_PRESETS: ColorPreset[] = [
 	{
 		name: '全透明',
 		theme: {
-			colorBrand: '#00000000',
-			colorBrandSecondary: '#00000000',
-			colorPrimary: '#00000000',
-			colorSecondary: '#00000000',
-			colorBg: '#00000000',
-			colorBorder: '#00000000',
-			colorCard: '#00000000',
-			colorArticle: '#00000000'
+			colorBrand: TRANSPARENT_COLOR,
+			colorBrandSecondary: TRANSPARENT_COLOR,
+			colorPrimary: TRANSPARENT_COLOR,
+			colorSecondary: TRANSPARENT_COLOR,
+			colorBg: TRANSPARENT_COLOR,
+			colorBorder: TRANSPARENT_COLOR,
+			colorCard: TRANSPARENT_COLOR,
+			colorArticle: TRANSPARENT_COLOR
 		},
-		backgroundColors: ['#00000000']
+		backgroundColors: [TRANSPARENT_COLOR]
 	}
 ]
 
@@ -253,6 +254,7 @@ export function ColorConfig({ formData, setFormData }: ColorConfigProps) {
 						<span className='text-sm font-medium whitespace-nowrap'>{preset.name}</span>
 					</button>
 				))}
+				<p className='text-secondary text-xs'>提示：全透明预设会同时清空文字与背景色，请搭配自定义背景与配色使用。</p>
 			</div>
 		</div>
 	)
