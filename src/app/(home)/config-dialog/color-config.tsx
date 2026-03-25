@@ -61,14 +61,14 @@ const COLOR_PRESETS: ColorPreset[] = [
 	{
 		name: '全透明',
 		theme: {
-			colorBrand: TRANSPARENT_COLOR,
-			colorBrandSecondary: TRANSPARENT_COLOR,
-			colorPrimary: TRANSPARENT_COLOR,
-			colorSecondary: TRANSPARENT_COLOR,
+			colorBrand: '#35bfabcc',
+			colorBrandSecondary: '#1fc9e7cc',
+			colorPrimary: '#1f2937',
+			colorSecondary: '#4b5563',
 			colorBg: TRANSPARENT_COLOR,
-			colorBorder: TRANSPARENT_COLOR,
-			colorCard: TRANSPARENT_COLOR,
-			colorArticle: TRANSPARENT_COLOR
+			colorBorder: '#ffffff66',
+			colorCard: '#ffffff1a',
+			colorArticle: '#ffffff4d'
 		},
 		backgroundColors: [TRANSPARENT_COLOR]
 	}
@@ -254,7 +254,7 @@ export function ColorConfig({ formData, setFormData }: ColorConfigProps) {
 						<span className='text-sm font-medium whitespace-nowrap'>{preset.name}</span>
 					</button>
 				))}
-				<p className='text-secondary text-xs'>提示：全透明预设会同时清空文字与背景色，请搭配自定义背景与配色使用。</p>
+				<p className='text-secondary text-xs'>提示：全透明预设会保留可读文字与半透明卡片，并关闭主页磨砂渐变背景。</p>
 			</div>
 		</div>
 	)
