@@ -15,7 +15,7 @@ export default function Layout({ children }: PropsWithChildren) {
 	useSizeInit()
 	const { cardStyles, siteContent, regenerateKey } = useConfigStore()
 	const { maxSM, init } = useSize()
-	const transparentBackgroundDisabled = siteContent.backgroundColors.length === 1 && siteContent.backgroundColors[0] === '#00000000'
+	const shouldDisableBlurredBackground = siteContent.backgroundColors.length === 1 && siteContent.backgroundColors[0] === '#00000000'
 
 	const backgroundImages = (siteContent.backgroundImages ?? []) as Array<{ id: string; url: string }>
 	const currentBackgroundImageId = siteContent.currentBackgroundImageId
@@ -51,7 +51,7 @@ export default function Layout({ children }: PropsWithChildren) {
 					}}
 				/>
 			)}
-			{!transparentBackgroundDisabled && <BlurredBubblesBackground colors={siteContent.backgroundColors} regenerateKey={regenerateKey} />}
+			{!shouldDisableBlurredBackground && <BlurredBubblesBackground colors={siteContent.backgroundColors} regenerateKey={regenerateKey} />}
 
 			<main className='relative z-10 h-full'>
 				{children}
