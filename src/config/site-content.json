@@ -9,8 +9,8 @@
 		"colorPrimary": "#1f2937",
 		"colorSecondary": "#4b5563",
 		"colorBrandSecondary": "#1fc9e7cc",
-		"colorBg": "#00000000",
-		"colorBorder": "#ffffff66",
+		"colorBg": "#ffffff",
+		"colorBorder": "#ffffff",
 		"colorCard": "#ffffff1a",
 		"colorArticle": "#ffffff4d"
 	},
